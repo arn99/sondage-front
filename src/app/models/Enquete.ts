@@ -9,4 +9,7 @@ export interface Enquete {
     category?:string;
     image?:string;
     rating?:number;
+    imtitleage?:string;
+    title?:string;
+    question?:any[];
 }

@@ -7,7 +7,6 @@ import {MenuModule} from 'primeng/menu';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
-import {CalendarModule} from 'primeng/calendar';
 import { HomeComponent } from './home/home.component';
 import { MenubarModule } from 'primeng/menubar';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +18,7 @@ import { EnqueteComponent } from './enquete/enquete.component';
 import {CardModule} from 'primeng/card';
 import { TableModule } from "primeng/table";
 import { HttpClientModule } from '@angular/common/http';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +45,7 @@ import { HttpClientModule } from '@angular/common/http';
     
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  providers: [],
+  providers: [{provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
