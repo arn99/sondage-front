@@ -3,6 +3,8 @@ import { Enquete } from '../models/Enquete';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+const apiUrl = environment.apiUrl;
 @Injectable({
   providedIn: 'root'
 })
@@ -45,24 +47,19 @@ export class EnqueteService {
 
     constructor(private http: HttpClient) { }
 
-    getProductsSmall() {
-        return this.http.get<any>('http://127.0.0.1:8000/api/inquiry?fields=id,title,question')
-        .toPromise()
-        .then(res => <Enquete[]>res.data)
-        .then(data => { return data; });
-    }
-    getEnquete(): Observable<Enquete> {
-        const url = `http://127.0.0.1:8000/api/inquiry/1?fields=id,title,question`;
-        return this.http.get<Enquete>(url)
+    getEnquetes(): Observable<Enquete[]> {
+        const url = `${apiUrl}/inquiry`;
+        return this.http.get<Enquete[]>(url)
           .pipe(
             tap(() => console.log()),
           );
       }
-    postQuestionnaire(data: any): Observable<any> {
-        const url = `http://127.0.0.1:8000/api/questionnaire/create`;
-        return this.http.post<any>(url, data).pipe(
-          tap(() => console.log()),
-        );
+    getEnqueteById(id: number): Observable<Enquete> {
+        const url = `${apiUrl}/inquiry/${id}`;
+        return this.http.get<Enquete>(url)
+          .pipe(
+            tap(() => console.log()),
+          );
       }
     getProducts() {
         return this.http.get<any>('assets/enquetes.json')
@@ -96,13 +93,13 @@ export class EnqueteService {
 
     generateId() {
         let text = "";
-        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        let possible = "0123456789";
         
         for (var i = 0; i < 5; i++) {
             text += possible.charAt(Math.floor(Math.random() * possible.length));
         }
         
-        return text;
+        return Number.parseInt(text);
     }
 
     generateName() {

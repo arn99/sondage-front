@@ -19,11 +19,16 @@ import {CardModule} from 'primeng/card';
 import { TableModule } from "primeng/table";
 import { HttpClientModule } from '@angular/common/http';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
+import { WelcomComponent } from './welcom/welcom.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    EnqueteComponent
+    EnqueteComponent,
+    QuestionnaireComponent,
+    WelcomComponent
   ],
   imports: [
     BrowserModule,

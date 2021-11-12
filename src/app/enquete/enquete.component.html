@@ -1,7 +1,7 @@
 
 <div class="card p-shadow-24">
     <div class="p-text-center">
-        <h2>{{enquetes?.title}}</h2>
+        <h2>{{enquete?.title}}</h2>
         <h2 class="p-text-bold">Questionnaire, enquete de satisfaction </h2>
     </div>
     <div class="p-grid">
@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="p-grid">
-        <div class="p-col" *ngFor="let item of enquetes.question; let i = index">
+        <div class="p-col" *ngFor="let item of questions; let i = index">
             <h5>{{item.body}}</h5>
             <div class="p-field-checkbox" *ngFor="let response of item.response">
                 <p-radioButton name="city1" [value]="response.id" [(ngModel)]="userResponse[i]" inputId="city1"></p-radioButton>

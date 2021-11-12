@@ -20,7 +20,7 @@ const apiUrl = environment.apiUrl;
 /**
  * user service class
  */
-export class UserDataService {
+export class UserService {
 
     users: any[] = [];
 

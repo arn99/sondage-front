@@ -2,6 +2,9 @@ import { Enquete } from './../models/Enquete';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EnqueteService } from '../service/enquete.service';
+import { QuestionnaireService } from '../service/questionnaire.service';
+import { SessionService } from '../service/session.service';
+import { QuestionService } from '../service/question.service';
 
 @Component({
   selector: 'app-enquete',
@@ -26,19 +29,19 @@ export class EnqueteComponent implements OnInit {
         city1:any = null;
     
         city2:any = null;
-        enquetes: Enquete = {};
+        enquete: Enquete = {};
         userResponse: any[] = [];
         selectedCategory: any = null;
         questions: any;
         codeCommercial: string = '';
         categories: any[] = [{name: 'Accounting', key: 'A'}, {name: 'Marketing', key: 'M'}, {name: 'Production', key: 'P'}, {name: 'Research', key: 'R'}];
-  constructor(private enqueteService: EnqueteService, private router: Router) { }
+  constructor(private questionnaireService: QuestionnaireService, private questionService: QuestionService, private router: Router, private sessionService: SessionService) { }
 
   ngOnInit(): void {
-    this.enqueteService.getEnquete().subscribe( vale => {
+    this.enquete = this.sessionService.getItem('enquete'); 
+    this.questionService.getQuestion(this.enquete.id || 1).subscribe( vale => {
       console.log(vale);
       this.questions = vale.question;
-      this.enquetes = vale;
     }, error => {
       console.error(error);
       
@@ -50,7 +53,7 @@ export class EnqueteComponent implements OnInit {
     for (let index = 0; index < this.questions.length; index++) {
       const element = this.questions[index];
       const data = {'code_commercial': this.codeCommercial, 'date_created': this.convertDate(),'questions': element.id, 'responses': this.userResponse[index], "customer": customer };
-      this.enqueteService.postQuestionnaire(data).subscribe( vale => {
+      this.questionnaireService.postQuestionnaire(data).subscribe( vale => {
         console.log(vale);
       }, error => {
         console.log(data);
@@ -61,7 +64,7 @@ export class EnqueteComponent implements OnInit {
     }
     this.questions.forEach((element: { id: any; }) => {
     });
-    //this.router.navigateByUrl('/home');
+    this.router.navigateByUrl('/questionnaire');
   }
 
   convertDate() {
