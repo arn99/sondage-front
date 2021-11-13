@@ -19,20 +19,28 @@ export class QuestionnaireComponent implements OnInit {
   selectedEnquetes: Enquete[] = [];
   cols: any[] = [];
   exportColumns: any[] = [];
-  constructor(private router: Router,private enqueteService: EnqueteService, private questionnaireService: QuestionnaireService, private sessionService: SessionService) { }
+  constructor(private router: Router, private enqueteService: EnqueteService, private questionnaireService: QuestionnaireService, private sessionService: SessionService) { }
 
   ngOnInit() {
     const enqueteId = this.sessionService.getItem('enquete').id;
     this.enqueteService.getEnqueteById(enqueteId).subscribe(data => {
+      this.cols.push({ field: 'Numero', header: 'Numero' });
+      this.cols.push({ field: 'Code commercial', header: 'Code commercial' });
       data.question?.forEach(element => {
         this.cols.push({ field: element.body, header: element.body.toUpperCase() })
       });
     }, error => {
       console.error(error);
-      
+
     });
     this.questionnaireService.getQuestionnaire(enqueteId).subscribe(data => {
-      console.error(this.groupByt(data, 'customer'));
+      console.error(data, 'customer');
+      let tab: any[] = []
+      data.forEach(element => {
+        if (element?.questions.inquiry.id === enqueteId) {
+          tab.push(element);
+        }
+      });
       this.questionnaires = [];
       let _question: any[] = []
       let groupQuestion: any[] = []
@@ -41,17 +49,19 @@ export class QuestionnaireComponent implements OnInit {
       });
       let arrayEl: any = {};
       //console.log(groupQuestion);
-      groupQuestion = this.groupByt(data, 'customer');
+      groupQuestion = this.groupByt(tab, 'customer');
+      let numero: number = 0;
       Object.keys(groupQuestion).forEach(element => {
-        if (Number.parseInt(element)>1) {
-          console.log(element, groupQuestion[Number.parseInt(element)])
+        numero++;
+        arrayEl['Numero'] = numero
+        let _elt: any;
+        if (Number.parseInt(element) > 1) {
           groupQuestion[Number.parseInt(element)].forEach((elt: any) => {
-            arrayEl[elt.questions.body] = elt.questions?.response.find( (x: { id: any; }) => x.id === elt.responses)?.choice;
+            console.log(numero);
+            arrayEl['Code commercial'] = elt?.code_commercial
+            arrayEl[elt.questions.body] = elt.questions?.response.find((x: { id: any; }) => x.id === elt.responses)?.choice;
           });
-          
         }
-        
-        console.log(arrayEl);
         this.questionnaires.push(
           arrayEl
         )
@@ -61,22 +71,11 @@ export class QuestionnaireComponent implements OnInit {
           number: categoryList[element].length
         }); */
       });
-      for (let i = 0; i < _question.length; i++) {
-      }
-      /* _question.forEach(elt => {
-        data.forEach(element => {
-          let questRest = {[elt]: element.questions?.response.find( (x: { id: any; }) => x.id === element.responses)?.choice};
-          /* this.questionnaires.push(
-            questRest
-          ) 
-        });
-        
-      }); */
       console.error(this.questionnaires);
-      
+
     }, error => {
       console.error(error);
-      
+
     });
 
 
@@ -99,19 +98,19 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   saveAsExcelFile(buffer: any, fileName: string): void {
-      let EXCEL_TYPE =
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
-      let EXCEL_EXTENSION = ".xlsx";
-      const data: Blob = new Blob([buffer], {
-        type: EXCEL_TYPE
-      });
-      saveAs.saveAs(
-        data,
-        fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION
-      );
+    let EXCEL_TYPE =
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    let EXCEL_EXTENSION = ".xlsx";
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    saveAs.saveAs(
+      data,
+      fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION
+    );
   }
-  groupByt = function (array: any, key:string) {
-    return array.reduce(function (prev:any, next:any) {
+  groupByt = function (array: any, key: string) {
+    return array.reduce(function (prev: any, next: any) {
       (prev[next[key]] = prev[next[key]] || []).push(next);
       return prev;
     }, {});

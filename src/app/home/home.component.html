@@ -1,11 +1,15 @@
-<div class="conatain">
-  <p-card *ngFor="let item of enquetes" header="{{item.title}}" [style]="{width: '360px'}" styleClass="p-card-shadow" class="p-text-center">
-    <ng-template pTemplate="header">
-        <img alt="Card" src="assets/image-sondage.jpg">
-    </ng-template>
-    <p>{{item.title}}</p>
-    <ng-template pTemplate="footer">
-        <p-button styleClass="p-button-success" (onClick)="select(item)" label="Choisir" icon="pi pi-check"></p-button>
-    </ng-template>
-  </p-card>
+<div class="p-grid">
+  <div class="p-col-4" *ngFor="let item of enquetes">
+    <div class="conatain">
+      <p-card  header="{{item.title}}" [style]="{width: '300px'}" styleClass="p-card-shadow" class="p-text-center">
+        <ng-template pTemplate="header">
+            <img alt="Card" src="assets/image-sondage.jpg">
+        </ng-template>
+        <p>{{item.title}}</p>
+        <ng-template pTemplate="footer">
+            <p-button styleClass="p-button-success" (onClick)="select(item)" label="Choisir" icon="pi pi-check"></p-button>
+        </ng-template>
+      </p-card>
+    </div>
+  </div>
 </div>
