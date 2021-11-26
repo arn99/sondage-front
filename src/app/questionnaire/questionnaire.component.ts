@@ -19,6 +19,7 @@ export class QuestionnaireComponent implements OnInit {
   selectedEnquetes: Enquete[] = [];
   cols: any[] = [];
   exportColumns: any[] = [];
+  tab: any[] = [1,2,3,4];
   constructor(private router: Router, private enqueteService: EnqueteService, private questionnaireService: QuestionnaireService, private sessionService: SessionService) { }
 
   ngOnInit() {

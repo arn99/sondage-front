@@ -26,6 +26,8 @@ import { ThankYouComponent } from './thank-you/thank-you.component';
 import {PasswordModule} from 'primeng/password';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
+
+import {SkeletonModule} from 'primeng/skeleton';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +41,7 @@ import {MessageModule} from 'primeng/message';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    SkeletonModule,
     BreadcrumbModule,
     FormsModule,
     PasswordModule,

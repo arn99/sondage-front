@@ -1,6 +1,5 @@
 ::ng-deep .p-menubar {
     background: #56baed;
-    border: none;
 }
 ::ng-deep .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link  {
     background: #fff;

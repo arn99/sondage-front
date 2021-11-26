@@ -1,4 +1,4 @@
-<p-table #dt [columns]="cols" [value]="questionnaires" selectionMode="multiple" [(selection)]="selectedEnquetes">
+<p-table *ngIf="questionnaires.length > 0" #dt [columns]="cols" [value]="questionnaires" selectionMode="multiple" [(selection)]="selectedEnquetes">
     <ng-template pTemplate="caption">
       <div class="p-text-center">
         <button type="button" pButton pRipple label="Telecharger" icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>

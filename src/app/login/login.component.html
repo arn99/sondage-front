@@ -8,7 +8,7 @@
       <!-- Login Form -->
       <form>
         <input type="text" [(ngModel)]="username" id="login" class="fadeIn second" name="login" placeholder="login">
-        <input type="text" [(ngModel)]="password" id="password" class="fadeIn third" name="login" placeholder="password">
+        <p-password [feedback]="false" type="password" [(ngModel)]="password" id="password" class="fadeIn third" name="login" placeholder="password"> </p-password>
         <button [disabled]="!username || !password " pButton pRipple (click)="login()"  type="button" label="Se connecter" class="p-button-raised btn"></button>
       </form>
   
