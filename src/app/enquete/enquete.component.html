@@ -2,25 +2,34 @@
 <div class="card p-shadow-24">
     <div class="p-text-center">
         <h2>{{enquete?.title}}</h2>
-        <h2 class="p-text-bold">Questionnaire, enquete de satisfaction </h2>
+        <div class="p-text-bold">Questionnaire, enquete de satisfaction </div>
     </div>
     <div class="p-grid">
         <div class="p-col-12 p-text-center">
             <h5>Code Commercial</h5>
-            <input type="text" pInputText [(ngModel)]="codeCommercial"> 
+            <input type="text" pInputText placeholder="Code Commercia" [(ngModel)]="codeCommercial"> 
         </div>
     </div>
     <div class="p-grid">
-        <div class="p-col" *ngFor="let item of questions; let i = index">
+        <div class="p-col-3" *ngFor="let item of questions; let i = index">
             <h5>{{item.body}}</h5>
             <div class="p-field-checkbox" *ngFor="let response of item.response">
-                <p-radioButton name="city1" [value]="response.id" [(ngModel)]="userResponse[i]" inputId="city1"></p-radioButton>
-                <label for="city1">{{response.choice}}</label>
+                <div *ngIf="response.type === 1">
+                    <p-radioButton name="city1" [value]="response.id" [(ngModel)]="userResponse[i]" inputId="city1"></p-radioButton>
+                    <label for="city1">{{response.choice}}</label>
+                </div>
+                <div *ngIf="response.type === 2">
+                    <p-radioButton name="city1" [value]="response.id" [(ngModel)]="userResponse[i]" inputId="city1"></p-radioButton>
+                    <label for="city1">{{response.choice}}</label>
+                    <div class="other">
+                        <input type="text" pInputText [(ngModel)]="userResponseOther[i]"> 
+                    </div>
+                </div>
             </div>
 
         </div>
     </div>
     <div class="p-text-center">
-        <button pButton pRipple (click)="valider()" type="button" label="Valider" class="p-button-raised p-button-success"></button>
+        <button [disabled]="!codeCommercial" pButton pRipple (click)="valider()" type="button" label="Valider" class="p-button-raised p-button-success"></button>
     </div>
 </div>

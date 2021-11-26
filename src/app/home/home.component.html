@@ -7,9 +7,11 @@
         </ng-template>
         <p>{{item.title}}</p>
         <ng-template pTemplate="footer">
-            <p-button styleClass="p-button-success" (onClick)="select(item)" label="Choisir" icon="pi pi-check"></p-button>
+          <p-button (click)="copy(item)" label="Générer le lien" class="p-button-raised "></p-button>
+            <p-button styleClass="p-button-success" (onClick)="select(item)" label="Detail" icon="pi pi-eye"></p-button>
         </ng-template>
       </p-card>
     </div>
   </div>
 </div>
+<p-messages></p-messages>

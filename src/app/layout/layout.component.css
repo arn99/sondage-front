@@ -1,0 +1,13 @@
+::ng-deep .p-menubar {
+    background: #56baed;
+    border: none;
+}
+::ng-deep .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link  {
+    background: #fff;
+}
+::ng-deep .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-icon  {
+    color: #56baed;
+}
+::ng-deep .p-menubar .p-menuitem-link .p-menuitem-text   {
+    color: #56baed !important;
+}

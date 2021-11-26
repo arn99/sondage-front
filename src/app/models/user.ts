@@ -11,6 +11,8 @@ export class User {
         this.address;
         this.city;
         this.group;
+        this.access;
+        this.refresh;
     }
 
     id?: number;
@@ -19,6 +21,8 @@ export class User {
     username?: string;
     password?: string;
     email?: string;
+    access?: string;
+    refresh?: string;
     birthDate?: string;
     address?: string;
     city?: string;

@@ -1,6 +1,6 @@
 import { Enquete } from './../models/Enquete';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EnqueteService } from '../service/enquete.service';
 import { QuestionnaireService } from '../service/questionnaire.service';
 import { SessionService } from '../service/session.service';
@@ -31,15 +31,19 @@ export class EnqueteComponent implements OnInit {
         city2:any = null;
         enquete: Enquete = {};
         userResponse: any[] = [];
+        userResponseOther: any[] = [];
         selectedCategory: any = null;
         questions: any;
         codeCommercial: string = '';
         categories: any[] = [{name: 'Accounting', key: 'A'}, {name: 'Marketing', key: 'M'}, {name: 'Production', key: 'P'}, {name: 'Research', key: 'R'}];
-  constructor(private questionnaireService: QuestionnaireService, private questionService: QuestionService, private router: Router, private sessionService: SessionService) { }
+        id: string = '1';
+  constructor(private questionnaireService: QuestionnaireService,
+    private route: ActivatedRoute,
+      private questionService: QuestionService, private router: Router) { }
 
   ngOnInit(): void {
-    this.enquete = this.sessionService.getItem('enquete'); 
-    this.questionService.getQuestion(this.enquete.id || 1).subscribe( vale => {
+    this.id = this.route?.snapshot?.paramMap?.get('id') || '1';
+    this.questionService.getQuestion(this.id).subscribe( vale => {
       console.log(vale);
       this.questions = vale.question;
     }, error => {
@@ -48,23 +52,32 @@ export class EnqueteComponent implements OnInit {
     })
   }
   valider() {
-    console.log(this.userResponse[0])
+    console.log(this.userResponse)
+    console.log(this.userResponseOther)
     const customer = Date.now()
     for (let index = 0; index < this.questions.length; index++) {
       const element = this.questions[index];
-      const data = {'code_commercial': this.codeCommercial, 'date_created': this.convertDate(),'questions': element.id, 'responses': this.userResponse[index], "customer": customer };
+      const data = {
+        'code_commercial': this.codeCommercial,
+        'date_created': this.convertDate(),
+        'questions': element.id,
+        'responses': this.userResponse[index],
+        'other': this.userResponseOther[index] || 'none',
+        'customer': customer };
+        console.log(data)
       this.questionnaireService.postQuestionnaire(data).subscribe( vale => {
         console.log(vale);
+        this.questions.forEach((element: { id: any; }) => {
+        });
+        this.router.navigateByUrl('/thank-you');
       }, error => {
         console.log(data);
         console.error(error);
         
-      })
+      });
       
     }
-    this.questions.forEach((element: { id: any; }) => {
-    });
-    this.router.navigateByUrl('/questionnaire');
+    //this.router.navigateByUrl('/questionnaire');
   }
 
   convertDate() {

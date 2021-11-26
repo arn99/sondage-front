@@ -33,11 +33,13 @@ export class AppComponent {
         }
     ];
     let user: User = {username: 'Djali', password: 'passer1234'};
-    user.username = 'tester';
-    user.password = 'passera';
-    this.expToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM2NTc3MDM5LCJpYXQiOjE2MzY1NzY3MzksImp0aSI6ImVlNDgxOTE1OGQ1YjQ1NDQ4YWRlNGY1NzM5OGJlOTFjIiwidXNlcl9pZCI6Mn0.zzqsTqMc2WbM7OLhovNMbLMao08V3bvDqWGUvCQyzK4';
+    user.username = 'Djali';
+    user.password = 'passer1234';
+    //this.expToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM2NTc3MDM5LCJpYXQiOjE2MzY1NzY3MzksImp0aSI6ImVlNDgxOTE1OGQ1YjQ1NDQ4YWRlNGY1NzM5OGJlOTFjIiwidXNlcl9pZCI6Mn0.zzqsTqMc2WbM7OLhovNMbLMao08V3bvDqWGUvCQyzK4';
+    console.log(user);
     this.userService.login(user).subscribe( data => {
       console.log(data);
+      this.expToken = data.access;
       this.userService.getUser(this.jwtHelper.decodeToken(this.expToken).user_id || 0).subscribe( user => {
         console.log(user);
       }, error => {

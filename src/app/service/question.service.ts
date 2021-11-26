@@ -13,7 +13,7 @@ export class QuestionService {
 
   constructor(private http: HttpClient) { }
 
-  getQuestion(enqueteId:number): Observable<Enquete> {
+  getQuestion(enqueteId:string): Observable<Enquete> {
     const url = `${apiUrl}/inquiry/${enqueteId}?fields=id,title,question`;
     return this.http.get<Enquete>(url)
       .pipe(

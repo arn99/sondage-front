@@ -57,9 +57,10 @@ export class QuestionnaireComponent implements OnInit {
         let _elt: any;
         if (Number.parseInt(element) > 1) {
           groupQuestion[Number.parseInt(element)].forEach((elt: any) => {
-            console.log(numero);
+            console.log(elt);
+            const response = elt.questions?.response.find((x: { id: any; }) => x.id === elt.responses);
             arrayEl['Code commercial'] = elt?.code_commercial
-            arrayEl[elt.questions.body] = elt.questions?.response.find((x: { id: any; }) => x.id === elt.responses)?.choice;
+            arrayEl[elt.questions.body] = (response?.type === 1) ? response?.choice : elt.other;
           });
         }
         this.questionnaires.push(

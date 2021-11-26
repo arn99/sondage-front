@@ -21,20 +21,28 @@ import { HttpClientModule } from '@angular/common/http';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 import { WelcomComponent } from './welcom/welcom.component';
-
+import { LayoutComponent } from './layout/layout.component';
+import { ThankYouComponent } from './thank-you/thank-you.component';
+import {PasswordModule} from 'primeng/password';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     EnqueteComponent,
     QuestionnaireComponent,
-    WelcomComponent
+    WelcomComponent,
+    LayoutComponent,
+    ThankYouComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     BreadcrumbModule,
     FormsModule,
+    PasswordModule,
+    MessagesModule,
     StepsModule,
     MenuModule,
     MenubarModule,
@@ -43,6 +51,7 @@ import { WelcomComponent } from './welcom/welcom.component';
     CardModule,
 		CheckboxModule,
 		RadioButtonModule,
+    MessageModule,
 		InputTextareaModule,
     ButtonModule,
     HttpClientModule,
