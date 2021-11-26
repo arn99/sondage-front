@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       }, error => {
         console.error(error);
       })
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/dashbord/home');
     }, error => {
       this.messageService.add({key: 'tc',severity:'error', summary: 'Error', detail: 'Username ou mot de passe incorrecte'});
       console.error(error);

@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   select(item: Enquete) {
     this.sessionService.setItem('enquete', item)
     //this.router.navigateByUrl('/enquete');
-    this.router.navigateByUrl('/questionnaire');
+    this.router.navigateByUrl('/dashbord/questionnaire');
   }
   copy(enquete: any) {
     console.log(location.origin)

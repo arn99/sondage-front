@@ -12,12 +12,12 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: 'home', component: HomeComponent },
-      { path: 'thank-you', component: ThankYouComponent },
-      { path: 'enquete/:id', component: EnqueteComponent },
       { path: 'questionnaire', component: QuestionnaireComponent },
       
     ]
   },
+  { path: 'enquete/:id', component: EnqueteComponent },
+  { path: 'thank-you', component: ThankYouComponent },
   {
     path: '',
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)

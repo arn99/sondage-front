@@ -32,7 +32,7 @@ export class LayoutComponent implements OnInit {
                 command: (event) => {
                     //event.originalEvent: Browser event
                     //vent.item: menuitem metadata
-                    this.router.navigateByUrl('/home');
+                    this.router.navigateByUrl('/dashbord/home');
                 }
             }
         ];
